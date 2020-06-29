@@ -1,0 +1,18 @@
+"Hough circle detection
+Formula for circle: (x-a)2+(y-b)2=r2
+Basic theory of detecting a line by using hough transformation: we know that the formula for a line: y=k*x+b. For example, there is a line that y = x. We can pick three different points on the line: A(0,0), B(1,1), C(2,2). It can be concluded that any point on the line, it has to meet the requirement that b = 0. The parameters of the straight line passing through point B must satisfy the equation 1=k+b, and the parameters of the straight line passing through point C must satisfy the equation 2=2k+b. These three equations correspond to the three straight lines on the parameter plane, and these three straight lines Will intersect at a point (k=1, b=0).
+
+Therefore, we can have a way to solve the problem like detecting a line: 
+1.We initialize an zero matrix.
+2.For each point on the image, the straight line corresponding to the parameter plane can be 	found, and then add 1 to the value of corresponding matrix’s coordinate.
+3.Find the position of the largest point on the parameter plane, this position is the parameter of the straight line on the original image.
+
+This is the basic idea of detecting line by using hough transformation. We can also use this property to detect a circle.
+
+Detecting circle: We can take the same parameter plane as the image plane, take each front point on the image as the center of the circle, draw a circle on the parameter plane with a known radius, and accumulate the results. Finally, find the peak point on the parameter plane. This position is the center of the circle on the image. In this problem, each point on the image plane corresponds to a circle on the parameter plane. However, sometimes we don’t know the accurate length of the circle. In this case, we can expand our parameter plane to three dimension, X-Y-R.
+
+General process: 
+1.Barbarize the image by using edge() function in Matlab, which is using sobel threshold in default.
+2.Detect the edge points in the image and save their coordinate positions. Set the range and step of the angle theta and the range and step of the radius r.
+3.Use the formula x=a+rcos(theta), y=b+rsin(theta) to find the values of a and b. (Note: x and y are the coordinates of an edge point in the actual image space, a and b are the coordinates of the corresponding parameter space), if the values of a and b are within a reasonable range, then the position's value increase by 1."
+
